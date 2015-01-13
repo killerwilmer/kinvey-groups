@@ -33,9 +33,11 @@ This endpoint allows the Kinvey Groups web app to securely query your apps group
 # Security
 
 **HTTPS**
+
 Both the Kinvey Groups app and Kinvey's endpoints are accessed over HTTPS, so information is safe during transit.
 
 **Open Source**
+
 You are currently viewing the actual code that is served.
 Go ahead, take a look at what is happening.
 
