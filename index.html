@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="app/app.css">
+    <!-- ensure https -->
+    <script>
+        if (window.location.hostname !== "localhost" && window.location.protocol === 'http:') {
+            window.location.protocol = 'https:'
+        }
+    </script>
+</head>
+<body>
+    <!--[if lt IE 10]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please
+        <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="container">
+        <div class="row">
+
+            <!-- Setup -->
+            <div id="setupPage">
+                <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+
+                    <h1 class="page-header">
+                        <i class="fa fa-users"></i> Kinvey Groups
+                    </h1>
+
+                    <p class="lead">
+                        Kinvey
+                        <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">User Group</a> management.
+                    </p>
+
+                    <hr/>
+
+                    <form name="setupForm" onsubmit="return false;">
+                        <legend>
+                            <i class="fa fa-cogs"></i>
+                            Setup Backend
+                        </legend>
+    
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                                <input type="text" class="form-control" id="appKey" name="appKey" placeholder="App Key" autofocus="autofocus"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                <input type="text" class="form-control" id="masterSecret" name="masterSecret" placeholder="Master Secret"/>
+                            </div>
+                        </div>
+
+                        <p class="help-block">
+                            <a href="http://devcenter.kinvey.com/rest/guides/security#credentials" target="_blank">Master credentials</a>
+                            are required to manage user groups.
+                        </p>
+
+                        <hr/>
+
+                        <div class="form-group">
+                            <button type="submit" id="bootstrapButton" class="btn btn-lg  btn-block btn-primary">
+                                <i class="fa fa-rocket"></i>
+                                Launch
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Angular View -->
+            <div class="col-xs-12">
+                <div ng-view></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/kinvey-angular/kinvey-angular.js"></script>
+
+    <script src="app/components/groups/groups-factory.js"></script>
+    <script src="app/components/groups/backend-factory.js"></script>
+
+    <script src="app/views/dashboard/dashboard.js"></script>
+
+    <script src="app/setup.js"></script>
+    <script src="app/app.js"></script>
+</body>
+</html>

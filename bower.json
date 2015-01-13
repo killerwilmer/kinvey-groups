@@ -1,0 +1,22 @@
+{
+  "name": "kinvey-groups",
+  "description": "Management console for Kinvey User Groups",
+  "version": "0.0.0",
+  "homepage": "https://github.com/GravityJack/kinvey-groups",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-route": "1.2.x",
+    "angular-loader": "1.2.x",
+    "angular-mocks": "~1.2.x",
+    "bootstrap": "~3.3.1",
+    "angular-resource": "~1.3.8",
+    "font-awesome": "~4.2.0",
+    "jquery": "~2.1.3",
+    "kinvey-angular": "~1.0.0"
+  },
+  "resolutions": {
+    "angular": "1.2.x"
+  }
+}

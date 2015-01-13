@@ -1,0 +1,174 @@
+<div id="kg-dashboard-page">
+    <h1 class="page-header"><i class="fa fa-users"></i> Kinvey Groups</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <!-- Backend -->
+            <div class="form-group">
+                <i class="fa fa-cog"></i> {{ kinveyBackend.appName }}
+                <span class="text-muted"> | <i class="fa fa-database"></i> {{ kinveyBackend.environmentName }}</span>
+                <a href="/" class="btn btn-sm btn-link">Change</a>
+            </div>
+
+            <!-- ActiveUser -->
+            <div class="form-group" ng-show="!!kinvey.getActiveUser()">
+                <i class="fa fa-user"></i> <b class="text-muted">{{ kinvey.getActiveUser().username }}</b>
+                <span class="btn btn-sm btn-link" ng-click="dashboardCtrl.logout()">Change</span>
+            </div>
+
+            <!-- Login Form -->
+            <form class="form-inline" ng-hide="!!kinvey.getActiveUser()">
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control input-sm"
+                           autofocus="autofocus"
+                           ng-model="dashboardCtrl.credentials.username" placeholder="Username"
+                            >
+                </div>
+
+                <div class="form-group">
+                    <input type="password"
+                           class="form-control input-sm"
+                           ng-model="dashboardCtrl.credentials.password" placeholder="Password"
+                            >
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-sm btn-primary" ng-click="dashboardCtrl.login()">Login</button>
+                </div>
+
+                <p class="help-block">
+                    <a href="http://devcenter.kinvey.com/rest/guides/security#credentials" target="_blank">User credentials</a>
+                    are required to execute app endpoints.
+                </p>
+
+                <p class="text-danger" ng-show="dashboardCtrl.loginError && !dashboardCtrl.hasPendingLogin">
+                    {{ dashboardCtrl.loginError.description }}
+                </p>
+            </form>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-inline" ng-show="kinvey.getActiveUser()">
+                <div class="row">
+                    <div class="col-xs-12">
+
+                        <!-- Toolbar -->
+                        <div class="form-group pull-right">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn-group">
+
+                                    <!-- Format -->
+                                    <button class="btn btn-default" ng-click="dashboardCtrl.showJSON = !dashboardCtrl.showJSON">
+                                        <i class="fa fa-code" ng-hide="dashboardCtrl.showJSON"></i>
+                                        <i class="fa fa-magic" ng-show="dashboardCtrl.showJSON"></i>
+                                        Show
+                                        <span ng-bind="dashboardCtrl.showJSON ? 'Pretty' : 'JSON'"></span>
+                                    </button>
+
+                                    <!-- Refresh -->
+                                    <button type="button" class="btn btn-default" ng-click="dashboardCtrl.getGroups()">
+                                        <i class="fa fa-refresh"></i>
+                                        Refresh
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br/>
+                        <br/>
+
+                        <!-- New Group -->
+                        <form class="pull-right" ng-submit="dashboardCtrl.createGroup()">
+                            <div class="form-group">
+
+                                <div class="input-group">
+                                    <input class="form-control" type="text" ng-model="dashboardCtrl.newGroup._id" placeholder="New Group ID"/>
+
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-plus"></i>
+                                            Create
+                                        </button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <hr/>
+
+    <div class="row" ng-show="kinvey.getActiveUser()">
+        <div class="col-xs-12">
+
+            <!-- Errors-->
+            <div class="alert alert-danger" ng-show="dashboardCtrl.groupError && !dashboardCtrl.hasPendingRequest">
+                <span class="close" ng-click="dashboardCtrl.clearGroupError()"><i class="fa fa-close text-danger"></i></span>
+                <strong>{{ dashboardCtrl.groupError.error || dashboardCtrl.groupError.code }}</strong>
+
+                <p>{{ dashboardCtrl.groupError.description || dashboardCtrl.groupError.message }}</p>
+
+                <i ng-show="dashboardCtrl.groupError.debug">Debug: {{ dashboardCtrl.groupError.debug }}</i>
+            </div>
+
+            <!-- Search -->
+            <div class="form-group" ng-show="dashboardCtrl.groups">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input class="form-control" type="text" ng-model="dashboardCtrl.groupSearchTerm" placeholder="Deep Group Search"/>
+                </div>
+            </div>
+
+            <!-- Spinner -->
+            <div class="kg-loading" ng-show="dashboardCtrl.hasPendingRequest">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+
+            <!-- Groups -->
+            <div ng-repeat="group in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
+                <!-- Default panel contents -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            {{ group._id }}
+                            <span class="kg-delete-group-btn text-danger pull-right">
+                                <i class="fa fa-trash" ng-click="dashboardCtrl.deleteGroup(group._id)"></i>
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="panel-body" ng-show="dashboardCtrl.showJSON">
+                        <pre>{{ group | json }}</pre>
+                    </div>
+                    <ul class="list-group" ng-hide="dashboardCtrl.showJSON">
+                        <li class="list-group-item">
+                            <div ng-hide="!group.users">
+                                <h5 class="text-muted"><i class="fa fa-users"></i> Users</h5>
+
+                                <pre ng-hide="group.users.list.length === 0"><div>all: <b>{{ group.users.all }}</b>,
+                                </div>list: [<div ng-repeat="user in group.users.list track by $index"> {{ $index }}: {{ user }},</div>]</pre>
+                            </div>
+
+                            <br/>
+
+                            <div ng-hide="!group.groups || group.groups.length === 0">
+                                <h5 class="text-muted"><i class="fa fa-sitemap"></i> Groups</h5>
+                                <pre><div ng-repeat="subgroup in group.groups track by $index">{{ $index }}: {{ subgroup }},</div></pre>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
