@@ -49,7 +49,8 @@
                 KinveyGroupsFactory.createGroup(vm.newGroup)
                     .then(function() {
                         vm.getGroups();
-                        vm.clearGroupError()
+                        vm.clearGroupError();
+                        vm.newGroup = {};
                     }, function(err) {
                         vm.groupError = err.data;
                         console.error(err);
@@ -76,7 +77,7 @@
                     KinveyGroupsFactory.deleteGroup(groupId)
                         .then(function() {
                             vm.getGroups();
-                            vm.clearGroupError()
+                            vm.clearGroupError();
                         }, function(err) {
                             vm.groupError = err.data;
                             console.error(err);
