@@ -6315,14 +6315,12 @@ body {
   border-top: 1px solid #DDD;
 }
 #gj-footer .gj-social-links {
-  color: dargjreen;
   overflow: hidden;
 }
 #gj-footer .gj-social-links .gj-social-link {
   display: inline-block;
   width: 60px;
   height: 60px;
-  line-height: 60px;
   font-size: 28px;
 }
 #gj-footer .gj-social-links .gj-web img {
