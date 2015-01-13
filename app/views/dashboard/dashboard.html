@@ -4,8 +4,8 @@
         <div class="col-xs-12">
             <!-- Backend -->
             <div class="form-group pull-right text-right">
-                <i class="fa fa-cog"></i> {{ kinveyBackend.appName }}
-                <span class="text-muted"> | <i class="fa fa-database"></i> {{ kinveyBackend.environmentName }}</span>
+                <i class="fa fa-database"></i> {{ kinveyBackend.appName }}
+                <span class="text-muted"> | {{ kinveyBackend.environmentName }}</span>
                 <br/>
                 <a href="/" class="btn btn-sm btn-link">Change</a>
             </div>
@@ -57,7 +57,7 @@
 
                 <!-- Search -->
                 <div class="form-group">
-                    <div class="input-group">
+                    <div class="input-group input-group-sm">
                         <div class="input-group-addon">
                             <i class="fa fa-search"></i>
                         </div>
@@ -67,7 +67,7 @@
 
                 <div class="form-group">
                     <div class="btn-toolbar" role="toolbar">
-                        <div class="btn-group">
+                        <div class="btn-group btn-group-sm">
 
                             <!-- Format -->
                             <button class="btn btn-default" ng-click="dashboardCtrl.showJSON = !dashboardCtrl.showJSON">
@@ -88,7 +88,7 @@
 
                 <!-- New Group -->
                 <div class="form-group pull-right">
-                    <div class="input-group">
+                    <div class="input-group input-group-sm">
                         <input class="form-control" type="text" ng-model="dashboardCtrl.newGroup._id" placeholder="New Group ID"/>
 
                         <div class="input-group-btn">
@@ -129,32 +129,28 @@
             </p>
 
             <!-- Groups -->
-            <div class="panel panel-default" ng-repeat="group in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
+            <div class="panel panel-default" ng-repeat="g in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
                 <div class="panel-heading">
                     <h4>
-                        <span class="gj-delete-group-btn text-danger">
-                            <i class="fa fa-trash" ng-click="dashboardCtrl.deleteGroup(group._id)"></i>
+                        <span class="gj-delete-group-btn text-danger pull-right" ng-click="dashboardCtrl.deleteGroup(g._id)">
+                            <i class="fa fa-trash"></i> delete
                         </span>
-                        {{ group._id }}
+                        {{ g._id }}
                     </h4>
                 </div>
                 <div class="panel-body" ng-show="dashboardCtrl.showJSON">
-                    <pre>{{ group | json }}</pre>
+                    <pre>{{ g | json }}</pre>
                 </div>
                 <ul class="list-group" ng-hide="dashboardCtrl.showJSON">
                     <li class="list-group-item">
-                        <div ng-hide="!group.users">
+                        <div ng-hide="!g.users">
                             <h5 class="text-muted"><i class="fa fa-users"></i> Users</h5>
-
-                                <pre ng-hide="group.users.list.length === 0"><br/>all: <b>{{ group.users.all }}</b>,
-                                list: [<span ng-repeat="user in group.users.list track by $index"><br/>  {{ $index }}: {{ user }},</span>]</pre>
+<pre ng-hide="g.users.list.length === 0">all: {{ g.users.all }},<br/>list: [<br/><span ng-repeat="user in g.users.list track by $index">  {{ $index }}: {{ user }},<br/></span>]</pre>
                         </div>
 
-                        <br/>
-
-                        <div ng-hide="!group.groups || group.groups.length === 0">
-                            <h5 class="text-muted"><i class="fa fa-sitemap"></i> Groups</h5>
-                            <pre><span ng-repeat="subgroup in group.groups track by $index"><br/>  {{ $index }}: {{ subgroup }},</span></pre>
+                        <div ng-hide="!g.groups || g.groups.length === 0">
+                            <h5 class="text-muted"><i class="fa fa-sitemap"></i> Subgroups</h5>
+                            <pre><span ng-repeat="subgroup in g.groups track by $index">  {{ $index }}: {{ subgroup }},<br/></span></pre>
                         </div>
                     </li>
                 </ul>
@@ -162,3 +158,4 @@
 
         </div>
     </div>
+</div>

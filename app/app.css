@@ -6295,6 +6295,7 @@ body {
 .gj-delete-group-btn {
   cursor: pointer;
   opacity: 0.5;
+  font-size: 14px;
 }
 .gj-delete-group-btn:hover {
   opacity: 1;
@@ -6309,7 +6310,7 @@ body {
   text-align: center;
   font-size: 16px;
   font-weight: 300;
-  background: #F5F5F5;
+  background: #FAFAFA;
   z-index: 100;
   border-top: 1px solid #DDD;
 }
