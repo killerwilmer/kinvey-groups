@@ -14,8 +14,6 @@
         var appKeyVal = appKey.val();
         var masterSecretVal = masterSecret.val();
 
-        console.debug('bootstrapping', appKeyVal, masterSecretVal);
-
         if (!appKeyVal || !masterSecretVal) {
             alert('App Key and Master Secret are required.');
             return;
