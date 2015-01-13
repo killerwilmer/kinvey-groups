@@ -9,6 +9,8 @@ A web app for managing your Kinvey User Groups.
 1. Add the [groups.js endpoint](https://github.com/GravityJack/kinvey-groups/blob/master/groups.js) to your Kinvey App.
 2. [Log in](https://gravityjack.github.io/kinvey-groups/) and enjoy.
 
+![Kinvey Groups by Gravity Jack](https://raw.githubusercontent.com/GravityJack/kinvey-groups/gh-pages/screenshot.png)
+
 # Why?
 
 Kinvey does not currently support group management.
