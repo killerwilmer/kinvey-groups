@@ -5,24 +5,6 @@ A web app for managing your Kinvey User Groups.
 1. Add the [groups.js endpoint](https://github.com/GravityJack/kinvey-groups/blob/master/groups.js) to your Kinvey App
 2. [Log in](https://gravityjack.github.io/kinvey-groups/) and enjoy.
 
-**Groups Endpoint**
-```javascript
-function onRequest(request, response, modules) {
-    var groups = modules.collectionAccess.collection('group');
-    var context = modules.backendContext;
-
-    // Require master secret
-    if (request.body.masterSecret !== context.getMasterSecret()) return response.error("Invalid master secret.");
-
-    groups.find({}, function(error, docs) {
-        if (error) return response.error(error);
-
-        response.body = docs;
-        response.complete(200);
-    });
-}
-```
-
 # Why?
 
 Kinvey does not currently support group management.
