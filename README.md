@@ -2,11 +2,10 @@ Kinvey Groups
 =============
 A web app for managing your Kinvey User Groups.
 
+1. Add the [groups.js endpoint](https://github.com/GravityJack/kinvey-groups/blob/master/groups.js) to your Kinvey App
+2. [Log in](https://gravityjack.github.io/kinvey-groups/) and enjoy.
 
-# Usage
-
-Add the [groups.js endpoint](https://github.com/GravityJack/kinvey-groups/blob/master/groups.js) to your Kinvey App, log in to [Kinvey Groups]() and enjoy :).
-
+**Groups Endpoint**
 ```javascript
 function onRequest(request, response, modules) {
     var groups = modules.collectionAccess.collection('group');
@@ -40,3 +39,5 @@ You are currently viewing the actual code that is served.
 Go ahead, take a look at what is happening.
 
 Have questions or feature requests? Please open an issue or pull request.
+
+# Development
