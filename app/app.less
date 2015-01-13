@@ -1,12 +1,67 @@
-.kg-loading {
-  font-size: 32px;
-  color: #AAA;
+// Google fonts
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+
+// Bootstrap overrides
+@import "../bower_components/bootstrap/less/bootstrap";
+
+@brand-primary: rgb(141, 187, 70);
+@font-family-base: 'Open sans', sans-serif;
+
+// Our LESS
+body {
+    padding-bottom: 200px;
 }
 
-.kg-delete-group-btn {
-  cursor: pointer;
-  opacity: 0.5;
-  &:hover {
-    opacity: 1;
-  }
+// Dashboard
+.gj-loading {
+    font-size: 32px;
+    color: #AAA;
+}
+
+.gj-delete-group-btn {
+    cursor: pointer;
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+// Footer
+#gj-footer {
+    position: fixed;
+    padding: 20px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: @gray-light;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    background: #F5F5F5;
+    z-index: 100;
+
+    .gj-social-links {
+        color: dargjreen;
+        overflow: hidden;
+
+        .gj-social-link {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            font-size: 28px;
+            
+        }
+        .gj-github {
+
+        }
+        .gj-web {
+            img {
+                height: 60px;
+            }
+        }
+        .gj-facebook {
+
+        }
+    }
 }

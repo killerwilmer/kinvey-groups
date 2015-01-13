@@ -112,7 +112,7 @@
     //
     // Module
     angular
-        .module('kgApp.dashboard', ['ngRoute'])
+        .module('gjApp.dashboard', ['ngRoute'])
         .config(DashboardRoute)
         .controller('DashboardCtrl', DashboardCtrl);
 }());

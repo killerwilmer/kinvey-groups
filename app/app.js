@@ -1,14 +1,14 @@
-(function kgAppClosure(angular) {
+(function gjAppClosure(angular) {
     'use strict';
 
-    angular.module('kgApp', [
+    angular.module('gjApp', [
         'ngRoute',
         'ngResource',
 
         'kinvey',
         'kinvey-groups',
 
-        'kgApp.dashboard',
+        'gjApp.dashboard',
     ])
         .config(['$routeProvider', function($routeProvider) {
             $routeProvider.otherwise({redirectTo: '/dashboard'});

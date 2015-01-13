@@ -39,7 +39,7 @@
                     console.log(activeUser);
 
                     // Bootstrap angular
-                    angular.bootstrap(document.documentElement, ['kgApp']);
+                    angular.bootstrap(document.documentElement, ['gjApp']);
 
                     // Hide the setupPage
                     setupPage.hide();

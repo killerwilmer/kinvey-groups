@@ -6,7 +6,6 @@
     <title>Kinvey Groups by Gravity Jack</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="app/app.css">
     <!-- ensure https -->
@@ -24,6 +23,29 @@
 
     <a href="https://github.com/GravityJack/kinvey-groups"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1>
+                <i class="fa fa-users"></i>
+                Kinvey Groups
+            </h1>
+
+            <br/>
+
+            <div class="lead">
+                <h3>
+                    The <i>only</i> Kinvey
+                    <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">User Group</a>
+                    management console.
+                    <br/>
+                    <br/>
+                    <small>by Gravity Jack</small>
+                </h3>
+            </div>
+
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
 
@@ -31,23 +53,12 @@
             <div id="setupPage">
                 <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
 
-                    <h1 class="page-header">
-                        <i class="fa fa-users"></i> Kinvey Groups
-                    </h1>
-
-                    <p class="lead">
-                        Kinvey
-                        <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">User Group</a> management.
-                    </p>
-
-                    <hr/>
-
                     <form name="setupForm" onsubmit="return false;">
                         <legend>
                             <i class="fa fa-cogs"></i>
-                            Setup Backend
+                            Kinvey Backend
                         </legend>
-    
+
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-key"></i></div>
@@ -84,6 +95,26 @@
             <div class="col-xs-12">
                 <div ng-view></div>
             </div>
+        </div>
+
+        <div id="gj-footer">
+            <div class="gj-social-links">
+                <div class="gj-social-link gj-github">
+                    <a href="https://github.com/GravityJack"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="gj-social-link gj-web">
+                    <a href="https://gravityjack.com/careers" target="_blank">
+                        <img src="app/assets/img/GJ-Icon-120.png" alt="Gravity Jack"/>
+                    </a>
+                </div>
+                <div class="gj-social-link gj-facebook">
+                    <a href="https://www.facebook.com/gravityjack">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+
+            Made with love by Gravity Jack.
         </div>
     </div>
 

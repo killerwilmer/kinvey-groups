@@ -1,5 +1,4 @@
-<div id="kg-dashboard-page">
-    <h1 class="page-header"><i class="fa fa-users"></i> Kinvey Groups</h1>
+<div id="gj-dashboard-page">
 
     <div class="row">
         <div class="col-sm-6">
@@ -131,7 +130,7 @@
             </div>
 
             <!-- Spinner -->
-            <div class="kg-loading" ng-show="dashboardCtrl.hasPendingRequest">
+            <div class="gj-loading" ng-show="dashboardCtrl.hasPendingRequest">
                 <i class="fa fa-spinner fa-spin"></i>
             </div>
 
@@ -142,7 +141,7 @@
                     <div class="panel-heading">
                         <h4>
                             {{ group._id }}
-                            <span class="kg-delete-group-btn text-danger pull-right">
+                            <span class="gj-delete-group-btn text-danger pull-right">
                                 <i class="fa fa-trash" ng-click="dashboardCtrl.deleteGroup(group._id)"></i>
                             </span>
                         </h4>
