@@ -145,7 +145,7 @@
                     <li class="list-group-item">
                         <div ng-hide="!g.users">
                             <h5 class="text-muted"><i class="fa fa-users"></i> Users</h5>
-<pre ng-hide="g.users.list.length === 0">all: {{ g.users.all }},<br/>list: [<br/><span ng-repeat="user in g.users.list track by $index">  {{ $index }}: {{ user }},<br/></span>]</pre>
+                            <pre ng-hide="g.users.list.length === 0">all: {{ g.users.all }},<br/>list: [<br/><span ng-repeat="user in g.users.list track by $index">  {{ $index }}: {{ user }},<br/></span>]</pre>
                         </div>
 
                         <div ng-hide="!g.groups || g.groups.length === 0">
