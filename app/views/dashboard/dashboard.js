@@ -15,12 +15,13 @@
 
     //
     // Controller
-    var DashboardCtrl = ['KinveyGroupsFactory', '$kinvey', 'KinveyBackend',
-        function DashboardController(KinveyGroupsFactory, $kinvey, KinveyBackend) {
+    var DashboardCtrl = ['$interval', '$kinvey', 'KinveyBackend', 'KinveyGroupsFactory',
+        function DashboardController($interval, $kinvey, KinveyBackend, KinveyGroupsFactory) {
             var vm = this;
             vm.initialized = false;
 
             vm.init = function() {
+                vm.isPollChecked = false;
                 vm.getGroups();
                 vm.initialized = true;
             };
@@ -40,7 +41,6 @@
                 vm.credentials = {};
                 $kinvey.User.logout();
             };
-
 
             // Groups
             vm.createGroup = function() {
@@ -102,10 +102,17 @@
                         vm.hasPendingRequest = false;
                     });
             };
-            
-            vm.clearGroupError  = function() {
+
+            vm.clearGroupError = function() {
                 vm.groupError = null
             };
+
+            // Poll for groups
+            $interval(function() {
+                if (vm.isPollChecked) {
+                    vm.getGroups();
+                }
+            }, 2000);
 
             vm.init();
         }];

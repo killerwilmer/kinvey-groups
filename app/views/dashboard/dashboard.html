@@ -70,19 +70,33 @@
                         <div class="btn-group btn-group-sm">
 
                             <!-- Format -->
-                            <button class="btn btn-default" ng-click="dashboardCtrl.showJSON = !dashboardCtrl.showJSON">
+                            <button type="button" class="btn btn-default" ng-click="dashboardCtrl.showJSON = !dashboardCtrl.showJSON">
                                 <i class="fa fa-code" ng-hide="dashboardCtrl.showJSON"></i>
                                 <i class="fa fa-magic" ng-show="dashboardCtrl.showJSON"></i>
                                 <span ng-bind="dashboardCtrl.showJSON ? 'Pretty' : 'JSON'"></span>
                             </button>
 
                             <!-- Refresh -->
-                            <button type="button" class="btn btn-default" ng-click="dashboardCtrl.getGroups()">
-                                <i class="fa fa-refresh"></i>
+                            <button type="button"class="btn btn-default"
+                                    ng-click="dashboardCtrl.getGroups()"
+                                    ng-disabled="dashboardCtrl.isPollChecked || dashboardCtrl.hasPendingRequest">
+                                <i class="fa fa-refresh" ng-hide="dashboardCtrl.hasPendingRequest"></i>
+                                <i class="fa fa-spinner fa-spin" ng-show="dashboardCtrl.hasPendingRequest"></i>
                                 Refresh
                             </button>
 
                         </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Poll -->
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="dashboardCtrl.isPollChecked">
+                            Poll
+                        </label>
                     </div>
                 </div>
 
@@ -92,12 +106,13 @@
                         <input class="form-control" type="text" ng-model="dashboardCtrl.newGroup._id" placeholder="New Group ID"/>
 
                         <div class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
                 </div>
+
             </form>
 
         </div>
@@ -107,11 +122,6 @@
 
     <div class="row" ng-show="kinvey.getActiveUser()">
         <div class="col-xs-12">
-
-            <!-- Spinner -->
-            <div class="gj-loading" ng-show="dashboardCtrl.hasPendingRequest">
-                <i class="fa fa-spinner fa-spin"></i>
-            </div>
 
             <!-- Errors-->
             <div class="alert alert-danger" ng-show="dashboardCtrl.groupError && !dashboardCtrl.hasPendingRequest">
@@ -124,7 +134,7 @@
             </div>
 
             <!-- No Groups -->
-            <p class="lead" ng-hide="dashboardCtrl.hasPendingRequest || dashboardCtrl.groups.length > 0">
+            <p class="lead" ng-hide="dashboardCtrl.groups.length > 0">
                 No groups for this backend, yet.
             </p>
 
