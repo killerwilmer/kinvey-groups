@@ -1,3 +1,10 @@
+// Groups Endpoint
+// This secure endpoint allows the Kinvey Groups app to query all user groups.
+// It should be named 'groups'.
+//
+// Help:
+// http://devcenter.kinvey.com/html5/guides/business-logic#custom-endpoints
+
 function onRequest(request, response, modules) {
     var groups = modules.collectionAccess.collection('group');
     var context = modules.backendContext;
