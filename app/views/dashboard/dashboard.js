@@ -1,4 +1,4 @@
-(function DashboardControllerClosure() {
+(function DashboardControllerClosure(angular) {
     'use strict';
 
     //
@@ -6,8 +6,8 @@
     function DashboardRoute($routeProvider) {
         $routeProvider.when('/dashboard', {
             templateUrl: 'app/views/dashboard/dashboard.html',
-            controller: 'DashboardCtrl',
-            controllerAs: 'dashboardCtrl',
+            controller: 'DashboardController',
+            controllerAs: 'dashboardCtrl'
         });
     }
 
@@ -15,15 +15,61 @@
 
     //
     // Controller
-    var DashboardCtrl = ['$interval', '$kinvey', 'KinveyBackend', 'KinveyGroupsFactory',
-        function DashboardController($interval, $kinvey, KinveyBackend, KinveyGroupsFactory) {
+    var DashboardController = ['$interval', '$kinvey', 'KinveyBackend', 'KinveyGroupsFactory', '$filter', 'ngToast',
+        function DashboardControllerFn($interval, $kinvey, KinveyBackend, KinveyGroupsFactory, $filter, ngToast) {
             var vm = this;
             vm.initialized = false;
 
             vm.init = function() {
                 vm.isPollChecked = false;
+                vm.showJSON = true;
+                vm.groupSearchTerm = '';
                 vm.getGroups();
+
+                vm.codemirror = {
+                    options: {
+                        onLoad: vm.codemirrorLoaded
+                    },
+                    editors: []
+                };
+
                 vm.initialized = true;
+            };
+
+            vm.codemirrorLoaded = function(_editor) {
+                // Editor part
+                var _doc = _editor.getDoc();
+                //_editor.focus();
+
+                // Options
+                _editor.setOption('mode', {name: "javascript", json: true});
+                _editor.setOption('theme', 'neo');
+                _editor.setOption('smartIndent', true);
+                _editor.setOption('lineWrapping', true);
+                _editor.setOption('lineNumbers', true);
+                _editor.setOption('autoCloseBrackets', true);
+                _editor.setOption('viewportMargin ', 'Infinity'); // allows auto height
+
+                //_editor.autoFormatLineBreaks();
+
+                _doc.markClean();
+
+                // Events
+                _editor.on("beforeChange", function() {
+
+                });
+                _editor.on("change", function() {
+
+                });
+            };
+
+            vm.validateJSON = function(editorId) {
+                try {
+                    JSON.parse(vm.codemirror.editors[editorId].model);
+                    vm.codemirror.editors[editorId].jsonIsValid = true;
+                } catch (e) {
+                    vm.codemirror.editors[editorId].jsonIsValid = false;
+                }
             };
 
             // Auth
@@ -31,9 +77,9 @@
                 $kinvey.User.login(vm.credentials)
                     .then(function(activeUser) {
                         vm.getGroups();
-                        vm.loginError = null;
                     }, function(err) {
-                        vm.loginError = err;
+                        console.error(err);
+                        toast.error(err.description);
                     })
             };
 
@@ -49,10 +95,10 @@
                 KinveyGroupsFactory.createGroup(vm.newGroup)
                     .then(function() {
                         vm.getGroups();
-                        vm.clearGroupError();
                         vm.newGroup = {};
                     }, function(err) {
-                        vm.groupError = err.data;
+                        var errorMessage = err.data ? err.data.debug : err;
+                        toast.error(errorMessage);
                         console.error(err);
                     })
                     .finally(function() {
@@ -60,7 +106,23 @@
                     });
             };
 
-            vm.deleteGroup = function(groupId) {
+            vm.updateGroup = function(editorID) {
+                var groupJSON = groupAsJSON(vm.codemirror.editors[editorID].model);
+
+                KinveyGroupsFactory.updateGroup(groupJSON)
+                    .then(function(savedGroup) {
+                        console.log(savedGroup);
+                        toast.success('Saved "' + savedGroup._id + '"');
+                        vm.getGroups();
+                    })
+                    .catch(function(err) {
+                        var errorMessage = err.data ? err.data.debug : err;
+                        toast.error(errorMessage);
+                        console.log(err);
+                    })
+            };
+
+            vm.deleteGroupClicked = function(groupId) {
                 var message = [
                     'Permanently delete this group?:',
                     '',
@@ -72,20 +134,42 @@
                 var confirmedDelete = confirm(message);
 
                 if (confirmedDelete) {
-                    vm.hasPendingRequest = true;
-
-                    KinveyGroupsFactory.deleteGroup(groupId)
-                        .then(function() {
-                            vm.getGroups();
-                            vm.clearGroupError();
-                        }, function(err) {
-                            vm.groupError = err.data;
-                            console.error(err);
-                        })
-                        .finally(function() {
-                            vm.hasPendingRequest = false;
-                        });
+                    vm.deleteGroup(groupId);
                 }
+            };
+
+            vm.deleteAllGroupsClicked = function() {
+                var deleteString = "DELETE ALL";
+                var message = [
+                    'Type ' + deleteString + ' to irreversibly delete all user groups from:',
+                    '',
+                    'App: ' + KinveyBackend.appName,
+                    'Environment: ' + KinveyBackend.environmentName,
+                ].join('\n');
+
+                var userInput = prompt(message);
+
+                if (userInput === deleteString) {
+                    angular.forEach(vm.groups, function(group) {
+                        vm.deleteGroup(group._id);
+                    });
+                }
+            };
+
+            vm.deleteGroup = function(groupId) {
+                vm.hasPendingRequest = true;
+
+                KinveyGroupsFactory.deleteGroup(groupId)
+                    .then(function() {
+                        toast.success('Deleted "' + groupId + '"');
+                        vm.getGroups();
+                    }, function(err) {
+                        toast.error(err.data);
+                        console.error(err);
+                    })
+                    .finally(function() {
+                        vm.hasPendingRequest = false;
+                    });
             };
 
             vm.getGroups = function() {
@@ -94,17 +178,22 @@
                 KinveyGroupsFactory.getGroups()
                     .then(function(groups) {
                         vm.groups = groups.reverse();
-                        vm.clearGroupError()
+
+                        vm.codemirror.editors = [];
+                        angular.forEach(vm.groups, function(group) {
+                            vm.codemirror.editors.push({
+                                model: groupAsString(group),
+                                jsonIsValid: true,
+                            });
+                        });
+
                     }, function(err) {
-                        vm.groupError = err;
+                        var errorMessage = err.data ? err.data.debug : err;
+                        toast.error(errorMessage);
                     })
                     .finally(function() {
                         vm.hasPendingRequest = false;
                     });
-            };
-
-            vm.clearGroupError = function() {
-                vm.groupError = null
             };
 
             // Poll for groups
@@ -114,6 +203,26 @@
                 }
             }, 2000);
 
+            function groupAsString(group) {
+                return $filter('json')(group);
+            }
+
+            function groupAsJSON(group) {
+                return JSON.parse(group);
+            }
+
+            var toast = {
+                error: function(error) {
+                    ngToast.create({
+                        content: error,
+                        class: 'danger'
+                    });
+                },
+                success: function(message) {
+                    ngToast.create(message);
+                }
+            };
+
             vm.init();
         }];
 
@@ -122,5 +231,6 @@
     angular
         .module('gjApp.dashboard', ['ngRoute'])
         .config(DashboardRoute)
-        .controller('DashboardCtrl', DashboardCtrl);
-}());
+        .controller('DashboardController', DashboardController);
+
+}(window.angular));

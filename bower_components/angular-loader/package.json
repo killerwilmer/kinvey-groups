@@ -1,8 +1,7 @@
 {
   "name": "angular-loader",
-  "version": "1.2.28",
+  "version": "1.3.9",
   "description": "AngularJS module for asynchronously loading modules",
-  "main": "angular-loader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

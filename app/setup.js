@@ -1,7 +1,7 @@
 (function SetupClosure(window, angular) {
     'use strict';
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         var setupPage = $('#setupPage');
         var appKey = $('#appKey');
         var masterSecret = $('#masterSecret');
@@ -23,14 +23,14 @@
             bootstrapButton.prop("disabled", !isChecked);
         }
 
-        addedCustomEndpoint.on('change', function () {
+        addedCustomEndpoint.on('change', function() {
             handleCheckboxChange(this.checked);
         });
 
 
         //
         // Bootstrap App
-        bootstrapButton.on('click', function () {
+        bootstrapButton.on('click', function() {
             Bootstrap();
         });
 
@@ -49,27 +49,35 @@
                 'kinvey-groups',
             ]);
 
-            $injector.invoke(['$kinvey', function ($kinvey) {
+            $injector.invoke(['$kinvey', function($kinvey) {
 
                 // Init kinvey to get activeUser
                 $kinvey.init({
                     appKey: appKeyVal,
                     appSecret: masterSecretVal,
                 })
-                    .then(function (activeUser) {
+                    .then(function(activeUser) {
                         console.debug('Auto signed in as:');
                         console.log(activeUser);
 
+                        return $kinvey.ping();
+                    }, function(err) {
+                        alert(err);
+                        console.error(err);
+                    })
+
+                    .then(function(response) {
                         // Bootstrap angular
                         angular.bootstrap(document.documentElement, ['gjApp']);
 
                         // Hide the setupPage
                         setupPage.hide();
 
-                    }, function (err) {
-                        alert(err);
-                        console.error(err);
+                    }, function(error) {
+                        alert(error.description);
+                        console.error(error);
                     });
+
             }]);
         }
     });

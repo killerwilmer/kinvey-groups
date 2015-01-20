@@ -9,61 +9,77 @@
 @border-radius-small: 2px;
 @border-radius-large: 2px;
 
-
-// Our LESS
+// Dashboard LESS
 body {
-    padding-bottom: 200px;
-}
-
-// Dashboard
-.gj-loading {
-    font-size: 32px;
-    color: #AAA;
-}
-
-.gj-delete-group-btn {
-    cursor: pointer;
-    opacity: 0.5;
-    font-size: 14px;
-    &:hover {
-        opacity: 1;
-    }
+  padding-bottom: 200px;
 }
 
 // Footer
 #gj-footer {
-    position: fixed;
-    padding: 20px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: @gray-light;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 300;
-    background: #FAFAFA;
-    z-index: 100;
-    border-top: 1px solid #DDD;
+  position: fixed;
+  padding: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: @gray-light;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+  background: #FAFAFA;
+  z-index: 100;
+  border-top: 1px solid #DDD;
 
-    .gj-social-links {
-        overflow: hidden;
+  .gj-social-links {
+    overflow: hidden;
 
-        .gj-social-link {
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            font-size: 28px;
-        }
-        .gj-github {
-
-        }
-        .gj-web {
-            img {
-                height: 60px;
-            }
-        }
-        .gj-facebook {
-
-        }
+    .gj-social-link {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
     }
+    .gj-github {
+
+    }
+    .gj-web {
+      img {
+        height: 60px;
+      }
+    }
+    .gj-facebook {
+
+    }
+  }
+}
+
+// Dashboard
+.gj-loading {
+  font-size: 32px;
+  color: #AAA;
+}
+
+.gj-group-btn {
+  cursor: pointer;
+  opacity: 0.5;
+  font-size: 14px;
+  &:hover {
+    opacity: 1;
+    text-decoration: none;
+  }
+
+  &.gj-delete-btn {
+    color: @state-danger-text;
+  }
+  &.gj-invalid-btn {
+    color: @state-warning-text;
+    opacity: 1;
+  }
+}
+
+.CodeMirror {
+  height: auto;
+
+  .CodeMirror-scroll {
+    height: auto;
+  }
 }

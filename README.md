@@ -11,6 +11,14 @@ A web app for managing your Kinvey User Groups.
 
 ![Kinvey Groups by Gravity Jack](https://raw.githubusercontent.com/GravityJack/kinvey-groups/gh-pages/screenshot.png)
 
+# Features
+
+1. Create, Edit, Update, Delete
+1. View/Delete All
+1. JSON Editor
+1. Auto refresh
+1. Search/Filter
+
 # Why?
 
 Kinvey does not currently support group management.
