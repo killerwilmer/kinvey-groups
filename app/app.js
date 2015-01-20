@@ -20,7 +20,7 @@
         .config(function ppAppConfigToast(ngToastProvider) {
             ngToastProvider.configure({
                 dismissOnTimeout: true,              // Allows toast messages to be removed automatically after a specified time
-                timeout: 4000,                       // Wait time for removal of created toast message
+                timeout: 5000,                       // Wait time for removal of created toast message
                 dismissButton: false,                // Appends specified close button on toast message
                 dismissButtonHtml: '&times;',        // HTML of close button to append
                 dismissOnClick: true,                // Allows toasts messages to be removed on mouse click

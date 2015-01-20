@@ -164,7 +164,7 @@
                         toast.success('Deleted "' + groupId + '"');
                         vm.getGroups();
                     }, function(err) {
-                        toast.error(err.data);
+                        toast.error(err.data.description + '. ' + err.data.debug);
                         console.error(err);
                     })
                     .finally(function() {
