@@ -30,7 +30,7 @@
             });
         })
 
-        .run(['$rootScope', '$kinvey', 'KinveyBackend', function($rootScope, $kinvey, KinveyBackend) {
+        .run(['$rootScope', '$kinvey', 'KinveyBackend', '$http', function($rootScope, $kinvey, KinveyBackend, $http) {
             $rootScope.kinvey = $kinvey;
             $rootScope.kinveyBackend = KinveyBackend;
         }]);

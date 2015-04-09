@@ -22,7 +22,6 @@
 
             vm.init = function() {
                 vm.isPollChecked = false;
-                vm.showJSON = true;
                 vm.groupSearchTerm = '';
                 vm.getGroups();
 
@@ -138,6 +137,10 @@
                 }
             };
 
+            vm.toggleGroupShowJSON = function(index) {
+                vm.codemirror.editors[index].showJSON = !vm.codemirror.editors[index].showJSON;
+            };
+
             vm.deleteAllGroupsClicked = function() {
                 var deleteString = "DELETE ALL";
                 var message = [
@@ -184,6 +187,7 @@
                             vm.codemirror.editors.push({
                                 model: groupAsString(group),
                                 jsonIsValid: true,
+                                showJSON: false
                             });
                         });
 

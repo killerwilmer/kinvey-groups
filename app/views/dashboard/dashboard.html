@@ -65,19 +65,11 @@
                     <div class="btn-toolbar" role="toolbar">
                         <div class="btn-group btn-group-sm">
 
-                            <!-- Format -->
-                            <button type="button" class="btn btn-default" ng-click="dashboardCtrl.showJSON = !dashboardCtrl.showJSON">
-                                <i class="fa fa-code" ng-hide="dashboardCtrl.showJSON"></i>
-                                <i class="fa fa-magic" ng-show="dashboardCtrl.showJSON"></i>
-                                <span ng-bind="dashboardCtrl.showJSON ? 'Pretty' : 'JSON'"></span>
-                            </button>
-
                             <!-- Refresh -->
                             <button type="button" class="btn btn-default"
                                     ng-click="dashboardCtrl.getGroups()"
                                     ng-disabled="dashboardCtrl.isPollChecked || dashboardCtrl.hasPendingRequest">
-                                <i class="fa fa-refresh" ng-hide="dashboardCtrl.hasPendingRequest"></i>
-                                <i class="fa fa-spinner fa-spin" ng-show="dashboardCtrl.hasPendingRequest"></i>
+                                <i class="fa {{ dashboardCtrl.hasPendingRequest ? 'fa-spinner fa-spin' : 'fa-refresh'}}"></i>
                                 Refresh
                             </button>
 
@@ -138,14 +130,23 @@
             <div class="panel panel-{{dashboardCtrl.codemirror.editors[$index].jsonIsValid ? 'default' : 'warning' }}"
                  ng-repeat="g in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
                 <div class="panel-body">
-                    <h4 ng-hide="dashboardCtrl.showJSON">
-                        <span class="gj-group-btn gj-delete-btn pull-right" ng-click="dashboardCtrl.deleteGroupClicked(g._id)">
-                            <i class="fa fa-trash"></i> delete
-                        </span>
+                    <h4 ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON" class="pull-left">
                         {{ g._id }}
                     </h4>
 
-                    <div ng-show="dashboardCtrl.showJSON">
+                    <div ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON" class="pull-right">
+                        <span class="gj-group-btn btn btn-link gj-json-btn pull-right" ng-click="dashboardCtrl.toggleGroupShowJSON($index)">
+                            <i class="fa fa-code"></i> edit json
+                        </span>
+                        <span class="gj-group-btn btn btn-link gj-delete-btn pull-right" ng-click="dashboardCtrl.deleteGroupClicked(g._id)">
+                            <i class="fa fa-trash"></i> delete
+                        </span>
+                    </div>
+
+                    <div ng-if="dashboardCtrl.codemirror.editors[$index].showJSON">
+                        <span class="gj-group-btn gj-json-btn btn btn-link pull-right" ng-click="dashboardCtrl.toggleGroupShowJSON($index)">
+                            <i class="fa fa-code"></i> hide json
+                        </span>
                         <span class="gj-group-btn gj-delete-btn btn btn-link pull-right" ng-click="dashboardCtrl.deleteGroupClicked(g._id)">
                             <i class="fa fa-trash"></i> delete
                         </span>
@@ -162,7 +163,7 @@
                                        ng-model="dashboardCtrl.codemirror.editors[$index].model"></ui-codemirror>
                     </div>
                 </div>
-                <ul class="list-group" ng-hide="dashboardCtrl.showJSON">
+                <ul class="list-group" ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON">
                     <li class="list-group-item">
                         <h5 class="text-muted">
                             <i class="fa fa-users"></i>

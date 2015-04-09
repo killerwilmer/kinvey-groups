@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="bower_components/codemirror/theme/neo.css">
     <link rel="stylesheet" href="bower_components/ngtoast/dist/ngToast.css"/>
-    <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet/less" href="app/app.less">
     <!-- ensure https -->
     <script>if (window.location.hostname !== "localhost" && window.location.protocol === 'http:') window.location.protocol = 'https:'</script>
+    <script src="bower_components/less.js/dist/less.js"></script>
 </head>
 <body>
 <toast></toast>
@@ -77,7 +78,7 @@
                     <div class="form-group">
                         <div class="input-group input-group-lg">
                             <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                            <input type="text" class="form-control" id="masterSecret" name="masterSecret" placeholder="Master Secret"/>
+                            <input type="password" class="form-control" id="masterSecret" name="masterSecret" placeholder="Master Secret"/>
                         </div>
                     </div>
 
