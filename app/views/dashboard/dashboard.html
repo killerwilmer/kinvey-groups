@@ -2,52 +2,17 @@
     <div class="row">
         <div class="col-xs-12">
             <!-- Backend -->
-            <div class="form-group pull-right text-right">
+            <div class="form-group center-block text-center">
                 <i class="fa fa-database"></i> {{ kinveyBackend.appName }}
                 <span class="text-muted"> | {{ kinveyBackend.environmentName }}</span>
                 <br/>
-                <a href="/" class="btn btn-sm btn-link">Change</a>
+                <a href="/" target="_self" class="btn btn-sm btn-link">Change</a>
             </div>
-
-            <!-- ActiveUser -->
-            <div class="form-group" ng-show="!!kinvey.getActiveUser()">
-                <i class="fa fa-user"></i> <b class="text-muted">{{ kinvey.getActiveUser().username }}</b>
-                <br/>
-                <span class="btn btn-sm btn-link" ng-click="dashboardCtrl.logout()">Change</span>
-            </div>
-
-            <!-- Login Form -->
-            <form class="form-inline" ng-hide="!!kinvey.getActiveUser()">
-                <div class="form-group">
-                    <input type="text"
-                           class="form-control input-sm"
-                           autofocus="autofocus"
-                           ng-model="dashboardCtrl.credentials.username" placeholder="Username"
-                            >
-                </div>
-
-                <div class="form-group">
-                    <input type="password"
-                           class="form-control input-sm"
-                           ng-model="dashboardCtrl.credentials.password" placeholder="Password"
-                            >
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-sm btn-primary" ng-click="dashboardCtrl.login()">Login</button>
-                </div>
-
-                <p class="help-block">
-                    <a href="http://devcenter.kinvey.com/rest/guides/security#credentials" target="_blank">User credentials</a>
-                    are required to execute app endpoints.
-                </p>
-
-            </form>
         </div>
     </div>
 
     <!-- Toolbar -->
-    <div class="row" ng-show="kinvey.getActiveUser()">
+    <div class="row">
         <div class="col-xs-12">
             <form class="form-inline pull-left">
 
@@ -118,7 +83,7 @@
 
     <hr/>
 
-    <div class="row" ng-show="kinvey.getActiveUser()">
+    <div class="row">
         <div class="col-xs-12">
 
             <!-- No Groups -->

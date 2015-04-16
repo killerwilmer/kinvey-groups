@@ -15,8 +15,8 @@
 
     //
     // Controller
-    var DashboardController = ['$interval', '$kinvey', 'KinveyBackend', 'KinveyGroupsFactory', '$filter', 'ngToast',
-        function DashboardControllerFn($interval, $kinvey, KinveyBackend, KinveyGroupsFactory, $filter, ngToast) {
+    var DashboardController = ['$interval', '$kinvey', 'KinveyBackend', 'KinveyGroupsFactory', '$filter', 'ngToast', 'UtilsFactory',
+        function DashboardControllerFn($interval, $kinvey, KinveyBackend, KinveyGroupsFactory, $filter, ngToast, UtilsFactory) {
             var vm = this;
             vm.initialized = false;
 
@@ -71,22 +71,6 @@
                 }
             };
 
-            // Auth
-            vm.login = function() {
-                $kinvey.User.login(vm.credentials)
-                    .then(function(activeUser) {
-                        vm.getGroups();
-                    }, function(err) {
-                        console.error(err);
-                        toast.error(err.description);
-                    })
-            };
-
-            vm.logout = function() {
-                vm.credentials = {};
-                $kinvey.User.logout();
-            };
-
             // Groups
             vm.createGroup = function() {
                 vm.hasPendingRequest = true;
@@ -96,9 +80,7 @@
                         vm.getGroups();
                         vm.newGroup = {};
                     }, function(err) {
-                        var errorMessage = err.data ? err.data.debug : err;
-                        toast.error(errorMessage);
-                        console.error(err);
+                        toast.error(UtilsFactory.parseError(err));
                     })
                     .finally(function() {
                         vm.hasPendingRequest = false;
@@ -115,9 +97,7 @@
                         vm.getGroups();
                     })
                     .catch(function(err) {
-                        var errorMessage = err.data ? err.data.debug : err;
-                        toast.error(errorMessage);
-                        console.log(err);
+                        toast.error(UtilsFactory.parseError(err));
                     })
             };
 
@@ -167,8 +147,7 @@
                         toast.success('Deleted "' + groupId + '"');
                         vm.getGroups();
                     }, function(err) {
-                        toast.error(err.data.description + '. ' + err.data.debug);
-                        console.error(err);
+                        toast.error(UtilsFactory.parseError(err));
                     })
                     .finally(function() {
                         vm.hasPendingRequest = false;
@@ -180,6 +159,7 @@
 
                 KinveyGroupsFactory.getGroups()
                     .then(function(groups) {
+                        console.debug('got groups', groups);
                         vm.groups = groups.reverse();
 
                         vm.codemirror.editors = [];
@@ -191,9 +171,9 @@
                             });
                         });
 
-                    }, function(err) {
-                        var errorMessage = err.data ? err.data.debug : err;
-                        toast.error(errorMessage);
+                    })
+                    .catch(function(error) {
+                        toast.error(UtilsFactory.parseError(error));
                     })
                     .finally(function() {
                         vm.hasPendingRequest = false;

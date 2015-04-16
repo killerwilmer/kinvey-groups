@@ -1,13 +1,15 @@
 (function KinveyGroupsFactoryClosure() {
     'use strict';
 
-    function KinveyGroupsFactory($resource, $window, KinveyBackend, $kinvey, $http) {
+    function KinveyGroupsFactory($resource, $window, KinveyBackend, $http, UtilsFactory, $q) {
         //
         // Resource
         var url = 'https://baas.kinvey.com/group/:appKey/:_id',
+            
             paramDefaults = {
                 appKey: KinveyBackend.appKey
             },
+            
             actions = {
                 get: {
                     method: 'GET',
@@ -44,9 +46,10 @@
                 }
 
             },
-            options = {};
 
-        var GroupResource = $resource(url, paramDefaults, actions, options);
+            options = {},
+
+            GroupResource = $resource(url, paramDefaults, actions, options);
 
         //
         // Factory
@@ -67,17 +70,24 @@
         };
 
         factory.getGroups = function() {
-            return $http({
-                method: 'GET',
+            var deferred = $q.defer();
+            
+            $http({
+                method: 'POST',
                 url: 'https://baas.kinvey.com/rpc/' + encodeURIComponent(KinveyBackend.appKey) + '/custom/groups',
                 headers: {
                     Authorization: 'Basic ' + $window.btoa(KinveyBackend.appKey + ':' + KinveyBackend.masterSecret),
                     'Content-Type': 'application/json'
-                },
-                data: {
-                    masterSecret: KinveyBackend.masterSecret
                 }
-            });
+            })
+                .success(function(response) {
+                    deferred.resolve(response);
+                })
+                .error(function(error) {
+                    deferred.resolve(UtilsFactory.parseError(error));
+                });
+            
+            return deferred.promise;
         };
 
         return factory;

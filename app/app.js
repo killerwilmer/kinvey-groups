@@ -11,6 +11,7 @@
         'kinvey',
         'kinvey-groups',
 
+        'gjApp.utils',
         'gjApp.dashboard',
     ])
         .config(['$routeProvider', function($routeProvider) {

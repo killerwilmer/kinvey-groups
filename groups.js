@@ -7,13 +7,15 @@
 
 function onRequest(request, response, modules) {
     var groups = modules.collectionAccess.collection('group');
-    var context = modules.backendContext;
+    var securityContext = modules.backendContext.getSecurityContext();
 
-    // Require master secret
-    if (request.body.masterSecret !== context.getMasterSecret()) return response.error("Invalid master secret.");
+    // Enforce master security context
+    if (securityContext !== 'master')
+        return response.error("You must use master credentials.");
 
     groups.find({}, function(error, docs) {
-        if (error) return response.error(error);
+        if (error)
+            return response.error(error);
 
         response.body = docs;
         response.complete(200);
