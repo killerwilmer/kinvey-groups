@@ -13,7 +13,7 @@
 
     //
     // Controller
-    function DashboardController($interval, KinveyBackend, KinveyGroupsFactory, $filter, ngToast, UtilsFactory) {
+    function DashboardController($interval, KinveyBackend, KinveyGroupsFactory, $filter, ngToast, UtilsFactory, $window, $location) {
         var vm = this;
         vm.initialized = false;
         vm.init = function() {
@@ -29,6 +29,11 @@
             };
 
             vm.initialized = true;
+        };
+
+        vm.changeBackend = function() {
+            $location.path('/');
+            $window.location.reload();
         };
 
         vm.codemirrorLoaded = function(_editor) {

@@ -1,6 +1,19 @@
 (function SetupClosure(window, angular) {
     'use strict';
 
+    var onLocalhost = ["localhost", "0.0.0.0", "127.0.0.1"].indexOf(window.location.hostname) !== -1;
+    var isHTTPS = window.location.protocol === 'http:';
+
+    // livereload
+    if (onLocalhost) {
+        document.write('<script ' + 'type="text/javascript" src="//localhost:35729/livereload.js"></' + 'script>')
+    }
+
+    // https hack
+    if (!onLocalhost && !isHTTPS) {
+        window.location.protocol = 'https:';
+    }
+
     $(document).ready(function() {
         var setupPage = $('#setupPage');
         var appKey = $('#appKey');

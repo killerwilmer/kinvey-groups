@@ -15,7 +15,7 @@
         'gjApp.dashboard',
     ])
         .config(function($routeProvider) {
-            $routeProvider.otherwise({redirectTo: '/dashboard'});
+            $routeProvider.otherwise({redirectTo: '/'});
         })
 
         .config(function ppAppConfigToast(ngToastProvider) {
@@ -31,9 +31,10 @@
             });
         })
 
-        .run(function($rootScope, $kinvey, KinveyBackend) {
+        .run(function($rootScope, $kinvey, KinveyBackend, $location) {
             $rootScope.kinvey = $kinvey;
             $rootScope.kinveyBackend = KinveyBackend;
+            $location.path('/dashboard');
         });
 
 }(window.angular));

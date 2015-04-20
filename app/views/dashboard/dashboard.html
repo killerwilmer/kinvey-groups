@@ -6,7 +6,7 @@
                 <i class="fa fa-database"></i> {{ kinveyBackend.appName }}
                 <span class="text-muted"> | {{ kinveyBackend.environmentName }}</span>
                 <br/>
-                <a href="/" target="_self" class="btn btn-sm btn-link">Change</a>
+                <div ng-click="dashboardCtrl.changeBackend()" class="btn btn-sm btn-link">Change</div>
             </div>
         </div>
     </div>

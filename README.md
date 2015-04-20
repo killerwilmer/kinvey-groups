@@ -41,12 +41,15 @@ Have questions or feature requests? Please open an issue or pull request.
 # Development
 
 1. Fork this repo
-2. Run `npm start`
-2. Create a feature branch: `feature/something-awesome`
-3. Open a pull request when you're ready to merge your feature into master
+1. Run `npm start`
+1. Run `gulp`
+1. Create a feature branch: `feature/something-awesome`
+1. Open a pull request when you're ready to merge your feature into master
 
 **Commands**
 
-`npm start` - This will install npm and bower packages, start a live reload server, and open your browser.
-
-`npm run server` - Starts a live reload server and opens the app in browser.
+`gulp` - makes a build and starts the watchers.  
+`gulp build` - makes a build.  
+`gulp watch` - starts the watchers.  
+`npm start` - This will install npm and bower packages, start a live reload server, and open your browser.  
+`npm run server` - Starts a live reload server and opens the app in browser.  
