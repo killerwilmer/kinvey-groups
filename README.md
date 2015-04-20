@@ -21,9 +21,9 @@ A web app for managing your Kinvey User Groups.
 
 # Why?
 
-Kinvey does not currently support group management.
-They currently [suggest](https://support.kinvey.com/discussion/200921477/list-groups) creating a custom endpoint to query all groups.
-This endpoint allows the Kinvey Groups web app to securely query your apps groups.
+1. Kinvey does not currently support group management via the web console.
+1. They currently [suggest](https://support.kinvey.com/discussion/200921477/list-groups) creating a custom endpoint to query all groups.
+1. This endpoint allows the Kinvey Groups web app to securely query your apps groups.
 
 # Security
 

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="bower_components/ngtoast/dist/ngToast.css"/>
     <link rel="stylesheet/less" href="app/app.less">
     <!-- ensure https -->
-    <script>if (window.location.hostname !== "localhost" && window.location.protocol === 'http:') window.location.protocol = 'https:'</script>
+    <script>if (["localhost", "0.0.0.0", "127.0.0.1"].indexOf(window.location.hostname) === -1  && window.location.protocol === 'http:') {window.location.protocol = 'https:'}</script>
     <script src="bower_components/less.js/dist/less.js"></script>
 </head>
 <body>

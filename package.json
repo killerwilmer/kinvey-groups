@@ -17,7 +17,7 @@
     "postinstall": "bower install",
 
     "prestart": "npm install",
-    "start": "live-server",
+    "start": "$(npm bin)/live-server",
     
     "server": "$(npm bin)/live-server",
 
