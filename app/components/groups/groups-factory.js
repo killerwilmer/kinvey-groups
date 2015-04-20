@@ -1,15 +1,37 @@
 (function KinveyGroupsFactoryClosure() {
     'use strict';
 
+    ////////////////////////////////////////////////////////////////
+    // BACKEND
+
+    function KinveyBackendFactory($kinvey) {
+        var factory = {};
+
+        factory.masterSecret = angular.element('#masterSecret').val();
+        factory.appKey = angular.element('#appKey').val();
+
+        $kinvey.ping().then(function(response) {
+            factory.appName = response.appName;
+            factory.environmentName = response.environmentName;
+        }, function(error) {
+            console.log('Kinvey Ping Failed. Response: ' + error.description);
+        });
+
+        return factory;
+    }
+
+    ////////////////////////////////////////////////////////////////
+    // GROUPS
+
     function KinveyGroupsFactory($resource, $window, KinveyBackend, $http, UtilsFactory, $q) {
         //
         // Resource
         var url = 'https://baas.kinvey.com/group/:appKey/:_id',
-            
+
             paramDefaults = {
                 appKey: KinveyBackend.appKey
             },
-            
+
             actions = {
                 get: {
                     method: 'GET',
@@ -71,7 +93,7 @@
 
         factory.getGroups = function() {
             var deferred = $q.defer();
-            
+
             $http({
                 method: 'POST',
                 url: 'https://baas.kinvey.com/rpc/' + encodeURIComponent(KinveyBackend.appKey) + '/custom/groups',
@@ -86,7 +108,7 @@
                 .error(function(error) {
                     deferred.resolve(UtilsFactory.parseError(error));
                 });
-            
+
             return deferred.promise;
         };
 
@@ -94,5 +116,6 @@
     }
 
     angular.module('kinvey-groups', [])
+        .factory('KinveyBackend', KinveyBackendFactory)
         .factory('KinveyGroupsFactory', KinveyGroupsFactory);
 }());
