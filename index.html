@@ -31,35 +31,35 @@
          alt="Fork me on GitHub"
          data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
 </a>
+<div id="setupPage">
 
-<div class="jumbotron text-center">
-    <div class="container">
-        <h1>
-            <i class="fa fa-users"></i>
-            Kinvey Groups
-        </h1>
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1>
+                <i class="fa fa-users"></i>
+                Kinvey Groups
+            </h1>
 
-        <br/>
+            <br/>
 
-        <div class="lead">
-            <h3>
-                The only Kinvey
-                <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">User Group</a>
-                management console.
-                <br/>
-                <br/>
-                <small>by Gravity Jack&trade;</small>
-            </h3>
+            <div class="lead">
+                <h3>
+                    The only Kinvey
+                    <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">User Group</a>
+                    management console.
+                    <br/>
+                    <br/>
+                    <small>by Gravity Jack&trade;</small>
+                </h3>
+            </div>
+
         </div>
-
     </div>
-</div>
 
-<div class="container">
-    <div class="row">
+    <div class="container">
+        <div class="row">
 
-        <!-- Setup -->
-        <div id="setupPage">
+            <!-- Setup -->
             <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
 
                 <form name="setupForm" onsubmit="return false;">
@@ -87,7 +87,8 @@
                             <label>
                                 <input type="checkbox" id="addedCustomEndpoint">
                                 I have added the
-                                <a href="https://github.com/GravityJack/kinvey-groups/blob/master/groups.js" target="_blank">groups endpoint</a>
+                                <a href="https://github.com/GravityJack/kinvey-groups/blob/master/groups.js" target="_blank">groups
+                                    endpoint</a>
                                 to my Kinvey backend.
                             </label>
                         </div>
@@ -116,7 +117,9 @@
 
                     <p>
                         Yep.
-                        Check out the source on <a href="https://github.com/GravityJack/kinvey-groups" target="_blank"><i class="fa fa-github"></i> github</a>.
+                        Check out the source on
+                        <a href="https://github.com/GravityJack/kinvey-groups" target="_blank"><i class="fa fa-github"></i>
+                            github</a>.
                         Nothing is stored and all requests are SSL encrypted.
                     </p>
                     <br/>
@@ -125,18 +128,22 @@
 
                     <p>
                         After adding the
-                        <a href="https://github.com/GravityJack/kinvey-groups/blob/master/groups.js" target="_blank">groups endpoint</a>
+                        <a href="https://github.com/GravityJack/kinvey-groups/blob/master/groups.js" target="_blank">groups
+                            endpoint</a>
                         to your Kinvey backend, this app allows you to view and manage all your
-                        <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">user groups</a>.
+                        <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">user
+                            groups</a>.
                     </p>
                     <br/>
 
                     <strong>Why require Master Secret?</strong>
 
                     <p>
-                        <a href="http://devcenter.kinvey.com/rest/guides/security#credentials" target="_blank">Master credentials</a>
+                        <a href="http://devcenter.kinvey.com/rest/guides/security#credentials" target="_blank">Master
+                            credentials</a>
                         required to create and delete
-                        <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">user groups</a>.
+                        <a href="http://devcenter.kinvey.com/rest/guides/users#usergroups" target="_blank">user
+                            groups</a>.
                     </p>
                     <br/>
 
@@ -144,13 +151,15 @@
 
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Angular View -->
-        <div class="col-xs-12">
-            <div ng-view></div>
-        </div>
+<!-- Angular View -->
+<div ng-view></div>
 
-        <!-- Footer -->
+<!-- Footer -->
+<div class="container">
+    <div class="row">
         <div id="gj-footer">
             <div class="gj-social-links">
                 <div class="gj-social-link gj-github">

@@ -1,114 +1,120 @@
 <div id="gj-dashboard-page">
-    <div class="row">
-        <div class="col-xs-12">
-            <!-- Backend -->
-            <div class="form-group center-block text-center">
-                <i class="fa fa-database"></i> {{ kinveyBackend.appName }}
-                <span class="text-muted"> | {{ kinveyBackend.environmentName }}</span>
-                <br/>
-                <div ng-click="dashboardCtrl.changeBackend()" class="btn btn-sm btn-link">Change</div>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron text-center">
+        <div class="container">
+
+            <h2>
+                <i class="fa fa-database"></i>
+                {{ kinveyBackend.appName }}
+                <span class="text-muted">| {{ kinveyBackend.environmentName }}</span>
+            </h2>
+
+            <div class="lead">
+                <span ng-click="dashboardCtrl.changeBackend()" class="btn btn-lg btn-link">Change <i class="fa fa-sign-out"></i></span>
             </div>
         </div>
     </div>
 
     <!-- Toolbar -->
-    <div class="row">
-        <div class="col-xs-12">
-            <form class="form-inline pull-left">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <form class="form-inline pull-left">
 
-                <!-- Search -->
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-                        <div class="input-group-addon">
-                            <i class="fa fa-search"></i>
-                        </div>
-                        <input class="form-control" type="text" ng-model="dashboardCtrl.groupSearchTerm" placeholder="Deep Group Search"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="btn-toolbar" role="toolbar">
-                        <div class="btn-group btn-group-sm">
-
-                            <!-- Refresh -->
-                            <button type="button" class="btn btn-default"
-                                    ng-click="dashboardCtrl.getGroups()"
-                                    ng-disabled="dashboardCtrl.isPollChecked || dashboardCtrl.hasPendingRequest">
-                                <i class="fa {{ dashboardCtrl.hasPendingRequest ? 'fa-spinner fa-spin' : 'fa-refresh'}}"></i>
-                                Refresh
-                            </button>
-
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- Poll -->
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="dashboardCtrl.isPollChecked">
-                            Poll
-                        </label>
-                    </div>
-                </div>
-            </form>
-
-            <form ng-submit="dashboardCtrl.createGroup()" class="form-inline pull-right">
-                <!-- New Group -->
-                <div class="form-group">
-                    <button type="button" class="btn btn-sm btn-default" ng-click="dashboardCtrl.deleteAllGroupsClicked()">
-                        <i class="fa fa-bomb"></i>
-                        Delete All
-                    </button>
-                </div>
-
-                <!-- New Group -->
-                <div class="form-group">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control" type="text" ng-model="dashboardCtrl.newGroup._id" placeholder="New Group ID"/>
-
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-primary" ng-disabled="!dashboardCtrl.newGroup._id">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                    <!-- Search -->
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-addon">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <input class="form-control" type="text" ng-model="dashboardCtrl.groupSearchTerm" placeholder="Deep Group Search"/>
                         </div>
                     </div>
-                </div>
 
-            </form>
+                    <div class="form-group">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group btn-group-sm">
 
+                                <!-- Refresh -->
+                                <button type="button" class="btn btn-default"
+                                        ng-click="dashboardCtrl.getGroups()"
+                                        ng-disabled="dashboardCtrl.isPollChecked || dashboardCtrl.hasPendingRequest">
+                                    <i class="fa {{ dashboardCtrl.hasPendingRequest ? 'fa-spinner fa-spin' : 'fa-refresh'}}"></i>
+                                    Refresh
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Poll -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="dashboardCtrl.isPollChecked">
+                                Poll
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+                <form ng-submit="dashboardCtrl.createGroup()" class="form-inline pull-right">
+                    <!-- New Group -->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-sm btn-default" ng-click="dashboardCtrl.deleteAllGroupsClicked()">
+                            <i class="fa fa-bomb"></i>
+                            Delete All
+                        </button>
+                    </div>
+
+                    <!-- New Group -->
+                    <div class="form-group">
+                        <div class="input-group input-group-sm">
+                            <input class="form-control" type="text" ng-model="dashboardCtrl.newGroup._id" placeholder="New Group ID"/>
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" ng-disabled="!dashboardCtrl.newGroup._id">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
         </div>
-    </div>
 
-    <hr/>
+        <hr/>
 
-    <div class="row">
-        <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
 
-            <!-- No Groups -->
-            <p class="lead" ng-hide="dashboardCtrl.groups.length > 0 || dashboardCtrl.hasPendingRequest">
-                No groups for this backend, yet.
-            </p>
+                <!-- No Groups -->
+                <p class="lead" ng-hide="dashboardCtrl.groups.length > 0 || dashboardCtrl.hasPendingRequest">
+                    No groups for this backend, yet.
+                </p>
 
-            <!-- Groups -->
-            <div class="panel panel-{{dashboardCtrl.codemirror.editors[$index].jsonIsValid ? 'default' : 'warning' }}"
-                 ng-repeat="g in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
-                <div class="panel-body">
-                    <h4 ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON" class="pull-left">
-                        {{ g._id }}
-                    </h4>
+                <!-- Groups -->
+                <div class="panel panel-{{dashboardCtrl.codemirror.editors[$index].jsonIsValid ? 'default' : 'warning' }}"
+                     ng-repeat="g in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
+                    <div class="panel-body">
+                        <h4 ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON" class="pull-left">
+                            {{ g._id }}
+                        </h4>
 
-                    <div ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON" class="pull-right">
+                        <div ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON" class="pull-right">
                         <span class="gj-group-btn btn btn-link gj-json-btn pull-right" ng-click="dashboardCtrl.toggleGroupShowJSON($index)">
                             <i class="fa fa-code"></i> edit json
                         </span>
                         <span class="gj-group-btn btn btn-link gj-delete-btn pull-right" ng-click="dashboardCtrl.deleteGroupClicked(g._id)">
                             <i class="fa fa-trash"></i> delete
                         </span>
-                    </div>
+                        </div>
 
-                    <div ng-if="dashboardCtrl.codemirror.editors[$index].showJSON">
+                        <div ng-if="dashboardCtrl.codemirror.editors[$index].showJSON">
                         <span class="gj-group-btn gj-json-btn btn btn-link pull-right" ng-click="dashboardCtrl.toggleGroupShowJSON($index)">
                             <i class="fa fa-code"></i> hide json
                         </span>
@@ -122,31 +128,31 @@
                             <i class="fa fa-exclamation-triangle"></i>
                             Invalid JSON
                         </span>
-                        <ui-codemirror ui-codemirror-opts="dashboardCtrl.codemirror.options"
-                                       ng-class="{'gj-invalid-json': !dashboardCtrl.codemirror.editors[$index].jsonIsValid}"
-                                       ng-change="dashboardCtrl.validateJSON($index)"
-                                       ng-model="dashboardCtrl.codemirror.editors[$index].model"></ui-codemirror>
+                            <ui-codemirror ui-codemirror-opts="dashboardCtrl.codemirror.options"
+                                           ng-class="{'gj-invalid-json': !dashboardCtrl.codemirror.editors[$index].jsonIsValid}"
+                                           ng-change="dashboardCtrl.validateJSON($index)"
+                                           ng-model="dashboardCtrl.codemirror.editors[$index].model"></ui-codemirror>
+                        </div>
                     </div>
+                    <ul class="list-group" ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON">
+                        <li class="list-group-item">
+                            <h5 class="text-muted">
+                                <i class="fa fa-users"></i>
+                                <span ng-hide="g.users">No</span>
+                                Users
+                            </h5>
+                            <pre ng-show="g.users">all: {{ g.users.all }},<br/>list: [<br/><span ng-repeat="user in g.users.list track by $index">  {{ $index }}: {{ user }},<br/></span>]</pre>
+
+                            <h5 class="text-muted">
+                                <i class="fa fa-sitemap"></i>
+                                <span ng-hide="g.groups">No</span>
+                                Subgroups
+                            </h5>
+                            <pre ng-show="g.groups"><span ng-repeat="subgroup in g.groups track by $index">  {{ $index }}: {{ subgroup }},<br/></span></pre>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="list-group" ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON">
-                    <li class="list-group-item">
-                        <h5 class="text-muted">
-                            <i class="fa fa-users"></i>
-                            <span ng-hide="g.users">No</span>
-                            Users
-                        </h5>
-                        <pre ng-show="g.users">all: {{ g.users.all }},<br/>list: [<br/><span ng-repeat="user in g.users.list track by $index">  {{ $index }}: {{ user }},<br/></span>]</pre>
-
-                        <h5 class="text-muted">
-                            <i class="fa fa-sitemap"></i>
-                            <span ng-hide="g.groups">No</span>
-                            Subgroups
-                        </h5>
-                        <pre ng-show="g.groups"><span ng-repeat="subgroup in g.groups track by $index">  {{ $index }}: {{ subgroup }},<br/></span></pre>
-                    </li>
-                </ul>
             </div>
-
         </div>
     </div>
 </div>
