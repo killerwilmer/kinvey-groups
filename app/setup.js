@@ -70,16 +70,6 @@
                     appSecret: masterSecretVal,
                 })
                     .then(function(activeUser) {
-                        console.debug('Auto signed in as:');
-                        console.log(activeUser);
-
-                        return $kinvey.ping();
-                    }, function(err) {
-                        alert(err);
-                        console.error(err);
-                    })
-
-                    .then(function(response) {
                         // Bootstrap angular
                         angular.bootstrap(document.documentElement, ['gjApp']);
 

@@ -98,52 +98,52 @@
                 </p>
 
                 <!-- Groups -->
-                <div class="gj-group panel panel-{{dashboardCtrl.codemirror.editors[$index].jsonIsValid ? 'default' : 'warning' }}"
+                <div class="gj-group panel panel-{{g.jsonIsValid ? 'default' : 'warning' }}"
                      ng-repeat="g in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
 
                     <div class="gj-group-heading">
                         <h4 class="pull-left">
-                            {{ g._id }}
+                            {{ g.data._id }}
                         </h4>
 
                         <div class="gj-group-btn gj-invalid-btn btn btn-link"
-                             ng-if="dashboardCtrl.codemirror.editors[$index].showJSON"
-                             ng-hide="dashboardCtrl.codemirror.editors[$index].jsonIsValid">
+                             ng-if="g.showJSON"
+                             ng-hide="g.jsonIsValid">
                             <i class="fa fa-exclamation-triangle"></i>
                             Invalid JSON
                         </div>
 
                         <div class="gj-group-btn gj-save-btn btn btn-link"
-                             ng-if="dashboardCtrl.codemirror.editors[$index].showJSON"
-                             ng-click="dashboardCtrl.updateGroup($index)">
+                             ng-if="g.showJSON"
+                             ng-click="dashboardCtrl.updateGroup(g)">
                             <i class="fa fa-check"></i> save
                         </div>
 
                         <div class="gj-group-btn gj-json-btn btn btn-link"
-                             ng-if="dashboardCtrl.codemirror.editors[$index].showJSON"
-                             ng-click="dashboardCtrl.toggleGroupShowJSON($index)">
+                             ng-if="g.showJSON"
+                             ng-click="dashboardCtrl.toggleGroupShowJSON(g)">
                             <i class="fa fa-code"></i> cancel
                         </div>
 
                         <div class="gj-group-btn btn btn-link gj-json-btn"
-                             ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON"
-                             ng-click="dashboardCtrl.toggleGroupShowJSON($index)">
+                             ng-if="!g.showJSON"
+                             ng-click="dashboardCtrl.toggleGroupShowJSON(g)">
                             <i class="fa fa-code"></i> editor
                         </div>
 
                         <div class="gj-group-btn btn btn-link gj-delete-btn"
-                             ng-click="dashboardCtrl.deleteGroupClicked(g._id)">
+                             ng-click="dashboardCtrl.deleteGroupClicked(g.data._id)">
                             <i class="fa fa-trash"></i> delete
                         </div>
                     </div>
                     
-                    <pre class="gj-group-preview" ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON">{{ g | json}}</pre>
+                    <pre class="gj-group-preview" ng-if="!g.showJSON">{{ g.data | json}}</pre>
 
                     <ui-codemirror ui-codemirror-opts="dashboardCtrl.codemirror.options"
-                                   ng-if="dashboardCtrl.codemirror.editors[$index].showJSON"
-                                   ng-class="{'gj-invalid-json': !dashboardCtrl.codemirror.editors[$index].jsonIsValid}"
-                                   ng-change="dashboardCtrl.validateJSON($index)"
-                                   ng-model="dashboardCtrl.codemirror.editors[$index].model">
+                                   ng-if="g.showJSON"
+                                   ng-class="{'gj-invalid-json': !g.jsonIsValid}"
+                                   ng-change="dashboardCtrl.validateJSON(g)"
+                                   ng-model="g.editorModel">
                     </ui-codemirror>
 
                 </div>

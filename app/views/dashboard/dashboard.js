@@ -24,8 +24,7 @@
             vm.codemirror = {
                 options: {
                     onLoad: vm.codemirrorLoaded
-                },
-                editors: []
+                }
             };
 
             vm.initialized = true;
@@ -63,12 +62,12 @@
             });
         };
 
-        vm.validateJSON = function(editorId) {
+        vm.validateJSON = function(group) {
             try {
-                JSON.parse(vm.codemirror.editors[editorId].model);
-                vm.codemirror.editors[editorId].jsonIsValid = true;
+                JSON.parse(group.editorModel);
+                group.jsonIsValid = true;
             } catch (e) {
-                vm.codemirror.editors[editorId].jsonIsValid = false;
+                group.jsonIsValid = false;
             }
         };
 
@@ -88,12 +87,11 @@
                 });
         };
 
-        vm.updateGroup = function(editorID) {
-            var groupJSON = groupAsJSON(vm.codemirror.editors[editorID].model);
+        vm.updateGroup = function(group) {
+            var groupJSON = groupAsJSON(group.editorModel);
 
             KinveyGroupsFactory.updateGroup(groupJSON)
                 .then(function(savedGroup) {
-                    console.log(savedGroup);
                     toast.success('Saved "' + savedGroup._id + '"');
                     vm.getGroups();
                 })
@@ -118,8 +116,8 @@
             }
         };
 
-        vm.toggleGroupShowJSON = function(index) {
-            vm.codemirror.editors[index].showJSON = !vm.codemirror.editors[index].showJSON;
+        vm.toggleGroupShowJSON = function(group) {
+            group.showJSON = !group.showJSON;
         };
 
         vm.deleteAllGroupsClicked = function() {
@@ -135,7 +133,7 @@
 
             if (userInput === deleteString) {
                 angular.forEach(vm.groups, function(group) {
-                    vm.deleteGroup(group._id);
+                    vm.deleteGroup(group.data._id);
                 });
             }
         };
@@ -160,15 +158,14 @@
 
             KinveyGroupsFactory.getGroups()
                 .then(function(groups) {
-                    console.debug('got groups', groups);
-                    vm.groups = groups.reverse();
+                    vm.groups = [];
 
-                    vm.codemirror.editors = [];
-                    angular.forEach(vm.groups, function(group) {
-                        vm.codemirror.editors.push({
-                            model: groupAsString(group),
-                            jsonIsValid: true,
-                            showJSON: false
+                    angular.forEach(groups.reverse(), function(group) {
+                        vm.groups.push({
+                            data: group,
+                            showJSON: false,
+                            editorModel: groupAsString(group),
+                            jsonIsValid: true
                         });
                     });
 
