@@ -136,10 +136,8 @@
                             <i class="fa fa-trash"></i> delete
                         </div>
                     </div>
-
-                    <div class="clearfix"></div>
-
-                    <pre ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON">{{ g | json}}</pre>
+                    
+                    <pre class="gj-group-preview" ng-if="!dashboardCtrl.codemirror.editors[$index].showJSON">{{ g | json}}</pre>
 
                     <ui-codemirror ui-codemirror-opts="dashboardCtrl.codemirror.options"
                                    ng-if="dashboardCtrl.codemirror.editors[$index].showJSON"
