@@ -5,9 +5,22 @@
 
 @brand-primary: rgb(141, 187, 70);
 
-@border-radius-base: 2px;
 @border-radius-small: 2px;
-@border-radius-large: 2px;
+@border-radius-base: 2px;
+@border-radius-large: 3px;
+
+pre {
+  padding: 4px;
+  margin: 0;
+  background: none;
+  border: none;
+  background: whitesmoke;
+  color: #555;
+  border-left: 20px solid darken(whitesmoke, 2);
+  padding-left: 10px;
+  font-family: monospace;
+  font-size: 14px;
+}
 
 // Dashboard LESS
 body {
@@ -58,30 +71,35 @@ body {
   color: #AAA;
 }
 
-.gj-group-btn {
-  cursor: pointer;
-  opacity: 0.5;
-  font-size: 14px;
-  &:hover {
-    opacity: 1;
-    text-decoration: none;
-  }
-  &.gj-delete-btn {
-    color: @state-danger-text;
-  }
-  &.gj-json-btn {
-    color: @state-info-text;
-  }
-  &.gj-invalid-btn {
-    color: @state-warning-text;
-    opacity: 1;
+.gj-group {
+  .gj-group-heading {
+    text-align: right;
+    padding: 10px 20px;
+
+    .gj-group-btn {
+      display: inline-block;
+      font-size: 14px;
+      opacity: 0.5;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        text-decoration: none;
+      }
+      &.gj-delete-btn {
+        color: @state-danger-text;
+      }
+      &.gj-json-btn {
+        color: @state-info-text;
+      }
+      &.gj-invalid-btn {
+        color: @state-warning-text;
+        opacity: 1;
+      }
+    }
   }
 }
 
+// CodeMirror
 .CodeMirror {
   height: auto;
-
-  .CodeMirror-scroll {
-    height: auto;
-  }
 }

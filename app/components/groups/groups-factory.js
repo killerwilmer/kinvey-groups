@@ -106,7 +106,7 @@
                     deferred.resolve(response);
                 })
                 .error(function(error) {
-                    deferred.resolve(UtilsFactory.parseError(error));
+                    deferred.reject(UtilsFactory.parseError(error));
                 });
 
             return deferred.promise;

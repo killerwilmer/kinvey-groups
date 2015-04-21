@@ -20,6 +20,7 @@ var lrOptions = {
     exts: [
         'html',
         'css',
+        'less',
         'js',
         'png',
         'gif',
