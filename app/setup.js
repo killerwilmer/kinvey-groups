@@ -2,7 +2,7 @@
     'use strict';
 
     var onLocalhost = ["localhost", "0.0.0.0", "127.0.0.1"].indexOf(window.location.hostname) !== -1;
-    var isHTTPS = window.location.protocol === 'http:';
+    var isHTTPS = window.location.protocol === 'https:';
 
     // livereload
     if (onLocalhost) {
