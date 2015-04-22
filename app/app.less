@@ -53,55 +53,53 @@ body {
 }
 
 // Dashboard
-.gj-loading {
-  font-size: 32px;
-  color: #AAA;
-}
+#gj-dashboard-page {
 
-.gj-group {
-  .gj-group-heading {
-    text-align: right;
-    padding: 10px 20px;
+  .gj-group {
+    .gj-group-heading {
+      text-align: right;
+      padding: 10px 20px;
 
-    .gj-group-btn {
-      display: inline-block;
+      .gj-group-btn {
+        display: inline-block;
+        font-size: 14px;
+        opacity: 0.5;
+        cursor: pointer;
+        &:hover {
+          opacity: 1;
+          text-decoration: none;
+        }
+        &.gj-delete-btn {
+          color: @state-danger-text;
+        }
+        &.gj-json-btn {
+          color: @state-info-text;
+        }
+        &.gj-invalid-btn {
+          color: @state-warning-text;
+          opacity: 1;
+        }
+      }
+    }
+
+    .gj-group-preview {
+      padding: 4px;
+      margin: 0;
+      background: none;
+      border: none;
+      border-radius: 0;
+      background: whitesmoke;
+      color: #555;
+      border-left: 20px solid darken(whitesmoke, 2);
+      padding-left: 10px;
+      font-family: monospace;
       font-size: 14px;
-      opacity: 0.5;
-      cursor: pointer;
-      &:hover {
-        opacity: 1;
-        text-decoration: none;
-      }
-      &.gj-delete-btn {
-        color: @state-danger-text;
-      }
-      &.gj-json-btn {
-        color: @state-info-text;
-      }
-      &.gj-invalid-btn {
-        color: @state-warning-text;
-        opacity: 1;
-      }
+      box-shadow: inset 0 2px 3px fade(#000, 10);
     }
   }
 
-  .gj-group-preview {
-    padding: 4px;
-    margin: 0;
-    background: none;
-    border: none;
-    border-radius: 0;
-    background: whitesmoke;
-    color: #555;
-    border-left: 20px solid darken(whitesmoke, 2);
-    padding-left: 10px;
-    font-family: monospace;
-    font-size: 14px;
-    box-shadow: inset 0 2px 3px fade(#000, 10);
+  // CodeMirror
+  .CodeMirror {
+    height: auto;
   }
-}
-
-// CodeMirror
-.CodeMirror {
-  height: auto;
 }

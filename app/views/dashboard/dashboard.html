@@ -1,37 +1,64 @@
 <div id="gj-dashboard-page">
 
     <!-- Jumbotron -->
-    <div class="jumbotron text-center">
+    <div class="jumbotron">
         <div class="container">
 
             <h2>
                 <i class="fa fa-database"></i>
                 {{ kinveyBackend.appName }}
                 <span class="text-muted">| {{ kinveyBackend.environmentName }}</span>
+                <small><span ng-click="dashboardCtrl.changeBackend()" class="btn btn-lg btn-link">Change</span></small>
             </h2>
 
-            <div class="lead">
-                <span ng-click="dashboardCtrl.changeBackend()" class="btn btn-lg btn-link">Change <i class="fa fa-sign-out"></i></span>
+            <!-- Search -->
+            <div class="input-group input-group-lg">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input class="form-control" type="text" ng-model="dashboardCtrl.groupSearchTerm" placeholder="Deep Search"/>
             </div>
+        
         </div>
     </div>
 
-    <!-- Toolbar -->
     <div class="container">
+        <!-- Toolbar -->
         <div class="row">
             <div class="col-xs-12">
-                <form class="form-inline pull-left">
 
-                    <!-- Search -->
+                <form class="form-inline pull-left">
+                    <!-- Clear -->
                     <div class="form-group">
                         <div class="input-group input-group-sm">
-                            <div class="input-group-addon">
-                                <i class="fa fa-search"></i>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="dashboardCtrl.clearKeyword"
+                                   placeholder="Type &quot;{{kinveyBackend.environmentName}}&quot;"/>
+
+                            <div class="input-group-btn">
+                                <button type="submit"
+                                        class="btn btn-danger"
+                                        ng-disabled="dashboardCtrl.clearKeyword !== kinveyBackend.environmentName"
+                                        ng-click="dashboardCtrl.clearGroupsClicked()">
+                                    Clear
+                                </button>
                             </div>
-                            <input class="form-control" type="text" ng-model="dashboardCtrl.groupSearchTerm" placeholder="Deep Group Search"/>
+                        </div>
+                    </div>
+                </form>
+
+                <form ng-submit="dashboardCtrl.createGroup()" class="form-inline pull-right">
+                    <!-- Poll -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="dashboardCtrl.isPollChecked">
+                                Poll
+                                &nbsp;
+                            </label>
                         </div>
                     </div>
 
+                    <!-- Button Toolbar -->
                     <div class="form-group">
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group btn-group-sm">
@@ -47,26 +74,6 @@
                             </div>
 
                         </div>
-                    </div>
-
-                    <!-- Poll -->
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" ng-model="dashboardCtrl.isPollChecked">
-                                Poll
-                            </label>
-                        </div>
-                    </div>
-                </form>
-
-                <form ng-submit="dashboardCtrl.createGroup()" class="form-inline pull-right">
-                    <!-- New Group -->
-                    <div class="form-group">
-                        <button type="button" class="btn btn-sm btn-default" ng-click="dashboardCtrl.deleteAllGroupsClicked()">
-                            <i class="fa fa-bomb"></i>
-                            Delete All
-                        </button>
                     </div>
 
                     <!-- New Group -->
@@ -98,7 +105,8 @@
                 </p>
 
                 <!-- Groups -->
-                <div class="gj-group panel panel-{{g.jsonIsValid ? 'default' : 'warning' }}"
+                <div class="gj-group panel panel-default"
+                     ng-class="{'panel-danger': !g.jsonIsValid, 'panel-success': g.showJSON}"
                      ng-repeat="g in dashboardCtrl.groups | filter: {$:dashboardCtrl.groupSearchTerm} track by $index">
 
                     <div class="gj-group-heading">
@@ -114,7 +122,7 @@
                         </div>
 
                         <div class="gj-group-btn gj-save-btn btn btn-link"
-                             ng-if="g.showJSON"
+                             ng-if="g.showJSON && g.jsonIsValid"
                              ng-click="dashboardCtrl.updateGroup(g)">
                             <i class="fa fa-check"></i> save
                         </div>
@@ -136,7 +144,7 @@
                             <i class="fa fa-trash"></i> delete
                         </div>
                     </div>
-                    
+
                     <pre class="gj-group-preview" ng-if="!g.showJSON">{{ g.data | json}}</pre>
 
                     <ui-codemirror ui-codemirror-opts="dashboardCtrl.codemirror.options"

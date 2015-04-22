@@ -120,21 +120,22 @@
             group.showJSON = !group.showJSON;
         };
 
-        vm.deleteAllGroupsClicked = function() {
-            var deleteString = "DELETE ALL";
+        vm.clearGroupsClicked = function() {
             var message = [
-                'Type ' + deleteString + ' to irreversibly delete all user groups from:',
+                'PERMANENTLY delete all user groups?',
                 '',
                 'App: ' + KinveyBackend.appName,
-                'Environment: ' + KinveyBackend.environmentName,
+                'Environment: ' + KinveyBackend.environmentName
             ].join('\n');
 
-            var userInput = prompt(message);
+            var isClearConfirmed = confirm(message);
 
-            if (userInput === deleteString) {
+            if (isClearConfirmed) {
                 angular.forEach(vm.groups, function(group) {
                     vm.deleteGroup(group.data._id);
                 });
+                
+                vm.getGroups();
             }
         };
 
@@ -168,7 +169,6 @@
                             jsonIsValid: true
                         });
                     });
-
                 })
                 .catch(function(error) {
                     toast.error(UtilsFactory.parseError(error));
