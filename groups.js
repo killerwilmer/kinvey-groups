@@ -10,12 +10,10 @@ function onRequest(request, response, modules) {
     var securityContext = modules.backendContext.getSecurityContext();
 
     // Enforce master security context
-    if (securityContext !== 'master')
-        return response.error("You must use master credentials.");
+    if (securityContext !== 'master') return response.error("You must use master credentials.");
 
     groups.find({}, function(error, docs) {
-        if (error)
-            return response.error(error);
+        if (error) return response.error(error);
 
         response.body = docs;
         response.complete(200);
